@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evently - Premium Event Management System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+
+  <!-- Background Glows -->
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden">
+    <span id="toast-message">Notification message</span>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="app-header">
+    <div class="nav-container">
+      <div class="logo-area">
+        <div class="logo-icon">✨</div>
+        <span class="logo-text">Event<span>ly</span></span>
+      </div>
+      <nav class="nav-menu" id="main-nav">
+        <!-- Logged in user info & logout will dynamically inject here -->
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-content">
+
+    <!-- ================== AUTHENTICATION VIEW ================== -->
+    <section id="auth-view" class="auth-section">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-login-btn">Sign In</button>
+          <button class="auth-tab-btn" id="tab-register-btn">Register</button>
+        </div>
+
+        <!-- Login Form Panel -->
+        <div class="auth-panel" id="login-panel">
+          <h2>Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to manage your events, bookings, and venues.</p>
+          
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-id">Username or Email</label>
+              <input type="text" id="login-id" placeholder="Enter username or email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="login-password" placeholder="Enter password" required>
+                <button type="button" class="password-toggle" id="login-password-toggle">
+                  <!-- Eye Icon -->
+                  <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>I am logging in as:</label>
+              <div class="role-selector">
+                <label class="role-option active">
+                  <input type="radio" name="login-role" value="user" checked>
+                  <span>User</span>
+                </label>
+                <label class="role-option">
+                  <input type="radio" name="login-role" value="vendor">
+                  <span>Vendor</span>
+                </label>
+                <label class="role-option">
+                  <input type="radio" name="login-role" value="admin">
+                  <span>Admin</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+        </div>
+
+        <!-- Register Form Panel -->
+        <div class="auth-panel hidden" id="register-panel">
+          <h2>Create Account</h2>
+          <p class="auth-subtitle">Join us to discover venue places or offer yours to clients.</p>
+          
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-username">Username</label>
+              <input type="text" id="register-username" placeholder="e.g. john_doe" required>
+            </div>
+
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <input type="email" id="register-email" placeholder="e.g. john@example.com" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="register-password" placeholder="Min 6 characters" required>
+                <button type="button" class="password-toggle" id="register-password-toggle">
+                  <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Register as:</label>
+              <div class="role-selector-register">
+                <label class="role-option-register active">
+                  <input type="radio" name="register-role" value="user" checked>
+                  <span>Client / User</span>
+                </label>
+                <label class="role-option-register">
+                  <input type="radio" name="register-role" value="vendor">
+                  <span>Venue Vendor</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-secondary btn-full">Register Account</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== DASHBOARD CONTAINERS ================== -->
+
+    <!-- 1. USER / CLIENT DASHBOARD -->
+    <section id="user-dashboard" class="dashboard-section hidden">
+      <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+          <div class="user-profile-badge">
+            <div class="avatar">U</div>
+            <div class="profile-details">
+              <h4 id="user-sidebar-name">User Name</h4>
+              <span>Event Client</span>
+            </div>
+          </div>
+          <ul class="sidebar-links">
+            <li><button class="sidebar-link active" id="user-tab-search">🔍 Search Venues</button></li>
+            <li><button class="sidebar-link" id="user-tab-bookings">📅 My Bookings</button></li>
+            <li><button class="sidebar-link" id="user-tab-requests">✉️ Custom Requests</button></li>
+          </ul>
+        </aside>
+
+        <!-- Main Dashboard Panel -->
+        <div class="dashboard-panel-content">
+          <!-- SEARCH VENUES PANEL -->
+          <div class="tab-panel" id="user-search-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Explore & Book Event Locations</h2>
+                <p>Browse through places uploaded by vendors and book them instantly.</p>
+              </div>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="filter-bar">
+              <div class="search-input-group">
+                <input type="text" id="venue-search-input" placeholder="Search by venue name, location, event types...">
+                <button class="btn btn-primary" id="venue-search-btn">Search</button>
+              </div>
+              <div class="filters-row">
+                <select id="venue-filter-type">
+                  <option value="">All Event Types</option>
+                  <option value="Wedding">Wedding</option>
+                  <option value="Birthday">Birthday</option>
+                  <option value="Conference">Conference</option>
+                  <option value="Anniversary">Anniversary</option>
+                </select>
+                <input type="text" id="venue-filter-location" placeholder="Filter by location">
+                <input type="number" id="venue-filter-max-price" placeholder="Max budget ($)">
+              </div>
+            </div>
+
+            <!-- Venues Grid -->
+            <div class="places-grid" id="venues-list-container">
+              <!-- Dynamically populated cards -->
+            </div>
+          </div>
+
+          <!-- USER BOOKINGS PANEL -->
+          <div class="tab-panel hidden" id="user-bookings-panel">
+            <div class="panel-header">
+              <h2>My Event Bookings</h2>
+              <p>Track your active venue reservations, check payment statuses, and view completed events.</p>
+            </div>
+            
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Venue Name</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Event Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="user-bookings-tbody">
+                  <!-- Bookings rows populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- USER CUSTOM REQUESTS PANEL -->
+          <div class="tab-panel hidden" id="user-requests-panel">
+            <div class="panel-header">
+              <h2>Submit Custom Event Requests</h2>
+              <p>Can't find the perfect venue? Let us know what you need. Our Administrators will match your needs with the best Vendor places.</p>
+            </div>
+
+            <div class="request-grid">
+              <!-- Submit Request Form -->
+              <div class="glass-card request-form-card">
+                <h3>Request Venue Connection</h3>
+                <form id="custom-request-form">
+                  <div class="form-group">
+                    <label for="req-event-type">Event Type</label>
+                    <select id="req-event-type" required>
+                      <option value="Wedding">Wedding</option>
+                      <option value="Birthday">Birthday</option>
+                      <option value="Conference">Conference</option>
+                      <option value="Anniversary">Anniversary</option>
+                      <option value="Corporate Meeting">Corporate Meeting</option>
+                      <option value="Cocktail Party">Cocktail Party</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="req-location">Desired Location</label>
+                    <input type="text" id="req-location" placeholder="e.g. New York, Boston" required>
+                  </div>
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="req-budget">Budget ($)</label>
+                      <input type="number" id="req-budget" placeholder="Max budget" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="req-date">Event Date</label>
+                      <input type="date" id="req-date" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="req-notes">Special Needs / Notes</label>
+                    <textarea id="req-notes" rows="3" placeholder="Provide event size, specific layout requests, or venue needs..."></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-full">Submit Request</button>
+                </form>
+              </div>
+
+              <!-- List of Custom Requests -->
+              <div class="glass-card request-list-card">
+                <h3>My Custom Event Requests</h3>
+                <div class="request-cards-container" id="user-requests-list">
+                  <!-- Custom requests cards populated dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. VENDOR DASHBOARD -->
+    <section id="vendor-dashboard" class="dashboard-section hidden">
+      <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+          <div class="user-profile-badge">
+            <div class="avatar vendor-avatar">V</div>
+            <div class="profile-details">
+              <h4 id="vendor-sidebar-name">Vendor Name</h4>
+              <span>Venue Vendor</span>
+            </div>
+          </div>
+          <ul class="sidebar-links">
+            <li><button class="sidebar-link active" id="vendor-tab-places">🏰 My Listed Places</button></li>
+            <li><button class="sidebar-link" id="vendor-tab-add-place">➕ List New Place</button></li>
+            <li><button class="sidebar-link" id="vendor-tab-bookings">📅 Booking Schedules</button></li>
+          </ul>
+        </aside>
+
+        <!-- Main Dashboard Panel -->
+        <div class="dashboard-panel-content">
+          <!-- MY PLACES PANEL -->
+          <div class="tab-panel" id="vendor-places-panel">
+            <div class="panel-header">
+              <h2>My Offered Venues</h2>
+              <p>Manage and monitor the locations and places you have listed on the network.</p>
+            </div>
+            <div class="places-grid" id="vendor-places-list">
+              <!-- Vendor's listed places will go here -->
+            </div>
+          </div>
+
+          <!-- LIST NEW PLACE PANEL -->
+          <div class="tab-panel hidden" id="vendor-add-place-panel">
+            <div class="panel-header">
+              <h2>List a New Venue / Place</h2>
+              <p>Offer your space to planners, users, and admins. Be precise with location and pricing.</p>
+            </div>
+            
+            <div class="form-max-width">
+              <div class="glass-card">
+                <form id="add-place-form">
+                  <div class="form-group">
+                    <label for="place-name">Venue Name</label>
+                    <input type="text" id="place-name" placeholder="e.g. Crimson Banquets, SkyLounge Garden" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="place-event-types">Supported Event Types (comma-separated)</label>
+                    <input type="text" id="place-event-types" placeholder="e.g. Wedding, Birthday, Conference" required>
+                  </div>
+                  
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="place-location">Location / Address</label>
+                      <input type="text" id="place-location" placeholder="e.g. Boston, USA" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="place-amount">Booking Amount / Price ($)</label>
+                      <input type="number" id="place-amount" placeholder="Charge per day" required>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">List Offering</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- VENDOR BOOKINGS PANEL -->
+          <div class="tab-panel hidden" id="vendor-bookings-panel">
+            <div class="panel-header">
+              <h2>Booking Schedules & Reservations</h2>
+              <p>List of all events booked at your venues. View reservations, payment statuses, and planner profiles.</p>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Venue Name</th>
+                    <th>Booked By</th>
+                    <th>User Email</th>
+                    <th>Booking Date</th>
+                    <th>Event Type</th>
+                    <th>Amount Paid</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="vendor-bookings-tbody">
+                  <!-- Booking rows populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ADMIN DASHBOARD -->
+    <section id="admin-dashboard" class="dashboard-section hidden">
+      <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+          <div class="user-profile-badge">
+            <div class="avatar admin-avatar">A</div>
+            <div class="profile-details">
+              <h4 id="admin-sidebar-name">Admin</h4>
+              <span>System Administrator</span>
+            </div>
+          </div>
+          <ul class="sidebar-links">
+            <li><button class="sidebar-link active" id="admin-tab-connect">🔗 Connect Needs</button></li>
+            <li><button class="sidebar-link" id="admin-tab-venues">🏰 View All Venues</button></li>
+            <li><button class="sidebar-link" id="admin-tab-users">👥 System Users</button></li>
+          </ul>
+        </aside>
+
+        <!-- Main Dashboard Panel -->
+        <div class="dashboard-panel-content">
+          <!-- ADMIN CONNECT REQUESTS PANEL -->
+          <div class="tab-panel" id="admin-connect-panel">
+            <div class="panel-header">
+              <h2>Connection Manager (User Needs & Vendor Places)</h2>
+              <p>Review custom requests submitted by users and connect them to suitable vendor places.</p>
+            </div>
+
+            <div class="admin-split-layout">
+              <!-- Left Side: User Requests List -->
+              <div class="split-column glass-card">
+                <h3>1. Select Pending User Request</h3>
+                <div class="admin-list-container" id="admin-requests-list">
+                  <!-- User requests shown as list items -->
+                </div>
+              </div>
+
+              <!-- Right Side: Matching Vendor Places -->
+              <div class="split-column glass-card">
+                <h3>2. Select Matching Venue Place</h3>
+                <div class="admin-list-container" id="admin-places-list">
+                  <!-- Vendor places shown as list items -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Control Action Bar -->
+            <div class="admin-action-bar glass-card">
+              <div class="action-summary">
+                <p>Selected Request: <strong id="selected-req-summary">None</strong></p>
+                <p>Selected Venue: <strong id="selected-place-summary">None</strong></p>
+              </div>
+              <button class="btn btn-secondary btn-large" id="admin-btn-connect" disabled>Connect Request to Venue</button>
+            </div>
+          </div>
+
+          <!-- ADMIN VIEW VENUES PANEL -->
+          <div class="tab-panel hidden" id="admin-venues-panel">
+            <div class="panel-header">
+              <h2>Vendor Venues Directory</h2>
+              <p>Observe all offered places, prices, and event categories listed by active vendors.</p>
+            </div>
+            
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Venue Name</th>
+                    <th>Vendor Name</th>
+                    <th>Vendor Email</th>
+                    <th>Supported Events</th>
+                    <th>Location</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-venues-tbody">
+                  <!-- Venue rows populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ADMIN VIEW USERS PANEL -->
+          <div class="tab-panel hidden" id="admin-users-panel">
+            <div class="panel-header">
+              <h2>System Accounts Directory</h2>
+              <p>Explore registrations, accounts details, and system statistics.</p>
+            </div>
+
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Role Badge</th>
+                    <th>Joined Date</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-tbody">
+                  <!-- Users rows populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================== MODALS ================== -->
+
+  <!-- 1. DIRECT BOOKING MODAL -->
+  <div id="booking-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Book Event Location</h3>
+        <button class="close-btn" id="close-booking-modal-btn">&times;</button>
+      </div>
+      <form id="modal-booking-form">
+        <input type="hidden" id="modal-booking-place-id">
+        
+        <div class="form-group">
+          <label>Selected Location</label>
+          <input type="text" id="modal-booking-place-name" disabled>
+        </div>
+        
+        <div class="form-group">
+          <label for="modal-booking-event-type">Select Event Type</label>
+          <select id="modal-booking-event-type" required>
+            <!-- Filled dynamically based on place supported events -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-booking-date">Select Event Date</label>
+          <input type="date" id="modal-booking-date" required>
+        </div>
+
+        <div class="form-group">
+          <label>Booking Amount</label>
+          <input type="text" id="modal-booking-amount" disabled>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Submit Booking & Proceed</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. PAYMENT MODAL (Simulated Credit Card) -->
+  <div id="payment-modal" class="modal-overlay hidden">
+    <div class="modal-card payment-modal-card">
+      <div class="modal-header">
+        <h3>Secure Checkout Gateway</h3>
+        <button class="close-btn" id="close-payment-modal-btn">&times;</button>
+      </div>
+      
+      <!-- Visual Interactive Credit Card -->
+      <div class="credit-card-visual">
+        <div class="card-chip"></div>
+        <div class="card-number-display" id="cc-card-number">•••• •••• •••• ••••</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-label">CARDHOLDER</span>
+            <span class="card-value" id="cc-card-holder">YOUR NAME</span>
+          </div>
+          <div>
+            <span class="card-label">EXPIRES</span>
+            <span class="card-value" id="cc-card-expiry">MM/YY</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="payment-gateway-form">
+        <input type="hidden" id="payment-booking-id">
+        
+        <div class="form-group">
+          <label for="pay-cardholder">Cardholder Name</label>
+          <input type="text" id="pay-cardholder" placeholder="e.g. John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pay-cardnumber">Card Number</label>
+          <input type="text" id="pay-cardnumber" maxlength="19" placeholder="4111 2222 3333 4444" required>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="pay-expiry">Expiry Date</label>
+            <input type="text" id="pay-expiry" placeholder="MM/YY" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="pay-cvv">CVV Code</label>
+            <input type="password" id="pay-cvv" placeholder="•••" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="payment-amount-display">
+          <span>Amount to Pay:</span>
+          <strong id="payment-modal-amount">$0.00</strong>
+        </div>
+
+        <button type="submit" class="btn btn-secondary btn-full" id="payment-submit-btn">
+          <span class="btn-text">Pay & Confirm Booking</span>
+          <div class="spinner hidden" id="payment-spinner"></div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

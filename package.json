@@ -1,0 +1,28 @@
+{
+  "name": "event-management-system",
+  "version": "1.0.0",
+  "description": "A full-stack Event Management System built with Node.js, Express, and SQLite3.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "event",
+    "management",
+    "express",
+    "sqlite3",
+    "fullstack"
+  ],
+  "author": "Antigravity",
+  "license": "ISC"
+}

@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Event Management System",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/server.js",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Database Sanity Tests",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/test_server.js",
+      "console": "integratedTerminal"
+    }
+  ]
+}
